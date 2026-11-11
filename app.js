@@ -76,7 +76,7 @@ const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
 let recognition = null;
 if (!SR) {
   micBtn.disabled = true;
-  micBtn.textContent = "🎙️ Mic is browser me supported nahi — type karke try karo";
+  $("micLabel").textContent = "Mic is browser me supported nahi — type karke try karo";
   $("micHint").textContent =
     "Voice input Chrome / Edge me chalta hai. Firefox/Safari me type karo.";
 } else {
@@ -87,7 +87,7 @@ if (!SR) {
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
     micBtn.classList.add("listening");
-    micBtn.textContent = "🔴 Sun raha hoon… bolo";
+    $("micLabel").textContent = "Sun raha hoon… bolo";
     statusEl.textContent = "Sun raha hoon — apni shikayat bolo.";
     recognition.onresult = (e) => {
       inputEl.value = e.results[0][0].transcript;
@@ -102,7 +102,7 @@ if (!SR) {
     recognition.onend = () => {
       recognition = null;
       micBtn.classList.remove("listening");
-      micBtn.textContent = "🎙️ Bolo — Mic se shikayat bolo";
+      $("micLabel").textContent = "Bolo — mic se shikayat bolo";
     };
     recognition.start();
   });

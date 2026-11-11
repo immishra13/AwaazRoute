@@ -3,19 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AwaazRoute — Bolo apni shikayat</title>
-<meta name="description" content="AwaazRoute: speak a complaint in Hindi or Hinglish, get it classified and routed to the right team — with the answer read back in speech.">
+<title>AwaazRoute — Bolo apni shikayat, sahi team tak pahunchao</title>
+<meta name="description" content="AwaazRoute: speak a complaint in Hindi or Hinglish, get it classified into 6 categories and routed to the right team, with the answer read back in speech.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header class="hero">
-  <h1>🎙️ AwaazRoute</h1>
-  <p class="tagline">Bolo apni shikayat — Hindi ya Hinglish me.<br>
-  App samjhega, sahi team ko bhejega, aur bolke batayega.</p>
+<header class="topbar">
+  <div class="wrap topbar-in">
+    <a class="wordmark" href="./">
+      <span class="wordmark-dot" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 19v3"/></svg>
+      </span>
+      AwaazRoute
+    </a>
+    <a class="toplink" href="https://github.com/immishra13/AwaazRoute">GitHub</a>
+  </div>
 </header>
 
-<main>
-  <section class="card">
+<section class="hero">
+  <div class="wrap">
+    <h1>Bolo apni shikayat.<br>Sahi team tak pahunchao.</h1>
+    <p class="tagline">Hindi ya Hinglish me bolo ya likho. App samjhega, 6 categories me se ek me daalega, aur sahi team ko bhejega. Result bolke bhi sunaya jayega.</p>
+    <ul class="facts">
+      <li>6 categories</li>
+      <li>Hindi + Hinglish</li>
+      <li>80% se kam confidence par human review</li>
+    </ul>
+  </div>
+</section>
+
+<main class="wrap">
+  <section class="card tool">
     <div class="row">
       <label for="lang">Bhasha / Language</label>
       <select id="lang">
@@ -24,12 +45,20 @@
       </select>
     </div>
 
-    <button id="micBtn" class="mic">🎙️ Bolo — Mic se shikayat bolo</button>
+    <button id="micBtn" class="mic">
+      <span class="mic-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 19v3"/></svg>
+      </span>
+      <span id="micLabel">Bolo — mic se shikayat bolo</span>
+    </button>
     <p class="hint" id="micHint">Mic Chrome / Edge me kaam karta hai. Mic na chale to neeche type kar do.</p>
 
     <textarea id="complaint" rows="3" placeholder="Ya yahan likho — jaise: UPI payment fail ho gaya par paise kat gaye"></textarea>
 
-    <button id="classifyBtn" class="primary">Classify karo →</button>
+    <button id="classifyBtn" class="primary">
+      <span>Classify karo</span>
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m13 6 6 6-6 6"/></svg>
+    </button>
     <p class="status" id="status">Model load ho raha hai…</p>
 
     <div class="samples">
@@ -44,7 +73,7 @@
   </section>
 
   <section class="card result" id="result" hidden>
-    <h2>Result</h2>
+    <p class="eyebrow">Result</p>
     <p class="category" id="resCategory">—</p>
     <p class="confidence"><span id="resConfidence">—</span></p>
     <div class="bar"><div id="resBar"></div></div>
@@ -53,17 +82,20 @@
       <div><dt>Priority</dt><dd id="resPriority">—</dd></div>
       <div><dt>Evidence words</dt><dd id="resEvidence">—</dd></div>
     </dl>
-    <p class="review" id="resReview" hidden>⚠️ Confidence 80% se kam hai — ye shikayat auto-route nahi hogi, human reviewer ko bheji jayegi.</p>
-    <button id="speakBtn" class="primary">🔊 Suno — result bolke suno</button>
+    <p class="review" id="resReview" hidden>Confidence 80% se kam hai — ye shikayat auto-route nahi hogi, human reviewer ko bheji jayegi.</p>
+    <button id="speakBtn" class="secondary">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M18.5 5.5a9 9 0 0 1 0 13"/></svg>
+      <span>Suno — result bolke suno</span>
+    </button>
   </section>
 
   <section class="card">
     <h2>Kaise kaam karta hai</h2>
     <ol class="steps">
-      <li><strong>Bolo.</strong> Mic se Hindi/Hinglish me shikayat bolo, ya type karo.</li>
-      <li><strong>Samjho.</strong> TF-IDF + Logistic Regression model shikayat ko 6 categories me se ek me daalta hai.</li>
-      <li><strong>Route karo.</strong> Category ke hisab se sahi team ya department suggest hota hai, priority ke saath.</li>
-      <li><strong>Suno.</strong> Result wapas bolke sunaya jata hai — padhna ya type karna zaroori nahi.</li>
+      <li><span class="step-no" aria-hidden="true">1</span><div><strong>Bolo.</strong> Mic se Hindi/Hinglish me shikayat bolo, ya type karo.</div></li>
+      <li><span class="step-no" aria-hidden="true">2</span><div><strong>Samjho.</strong> TF-IDF + Logistic Regression model shikayat ko 6 categories me se ek me daalta hai.</div></li>
+      <li><span class="step-no" aria-hidden="true">3</span><div><strong>Route karo.</strong> Category ke hisab se sahi team ya department suggest hota hai, priority ke saath.</div></li>
+      <li><span class="step-no" aria-hidden="true">4</span><div><strong>Suno.</strong> Result wapas bolke sunaya jata hai — padhna ya type karna zaroori nahi.</div></li>
     </ol>
     <p class="note">Kam confidence (&lt; 80%) ho to shikayat human reviewer ko bheji jati hai — yehi safeguard RTI Black Hole project me bhi hai.</p>
   </section>
@@ -71,26 +103,28 @@
   <section class="card">
     <h2>Categories</h2>
     <ul class="cats">
-      <li><strong>Bank Accounts and Services</strong> → Bank Account Support Team</li>
-      <li><strong>Credit Card Services</strong> → Credit Card Support Team</li>
-      <li><strong>Credit Reporting</strong> → Credit Bureau Disputes Team</li>
-      <li><strong>Debt Collection</strong> → Collections Resolution Team</li>
-      <li><strong>Loans</strong> → Loans Support Team</li>
-      <li><strong>Government Services / RTI</strong> → Concerned Govt. Department (RTI Cell)</li>
+      <li><strong>Bank Accounts and Services</strong><span>Bank Account Support Team</span></li>
+      <li><strong>Credit Card Services</strong><span>Credit Card Support Team</span></li>
+      <li><strong>Credit Reporting</strong><span>Credit Bureau Disputes Team</span></li>
+      <li><strong>Debt Collection</strong><span>Collections Resolution Team</span></li>
+      <li><strong>Loans</strong><span>Loans Support Team</span></li>
+      <li><strong>Government Services / RTI</strong><span>Concerned Govt. Department (RTI Cell)</span></li>
     </ul>
   </section>
 
-  <section class="card">
+  <section class="card quiet">
     <h2>Honest note</h2>
     <p class="note">Ye ek demo hai: classifier 144 synthetic sample complaints par train hua hai, isliye iski accuracy production model jaisi nahi hai. Live demo me awaaz ke liye browser ki built-in Web Speech API use hoti hai (koi key ya server nahi chahiye). Production design me Gnani AI ke models hain — Prisma v2.5 (speech-to-text), Evon v3.3 (reasoning) aur Timbre v2.5 (text-to-speech). Tumhari awaaz ya shikayat kahin store nahi hoti.</p>
   </section>
 </main>
 
 <footer>
-  <p>Built by <a href="https://github.com/immishra13">Ankur Mishra</a> — grows out of
-  <a href="https://github.com/immishra13/-Financial-Complaint-Classifier">Financial Complaint Classifier</a> and
-  <a href="https://github.com/immishra13/RTI-black-hole">RTI Black Hole</a>. •
-  <a href="https://github.com/immishra13/AwaazRoute">GitHub repo</a></p>
+  <div class="wrap">
+    <p>Built by <a href="https://github.com/immishra13">Ankur Mishra</a> — grows out of
+    <a href="https://github.com/immishra13/-Financial-Complaint-Classifier">Financial Complaint Classifier</a> and
+    <a href="https://github.com/immishra13/RTI-black-hole">RTI Black Hole</a> ·
+    <a href="https://github.com/immishra13/AwaazRoute">GitHub repo</a></p>
+  </div>
 </footer>
 
 <script src="text.js"></script>
