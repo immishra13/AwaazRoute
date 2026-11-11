@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AwaazRoute — Bolo apni shikayat</title>
+<meta name="description" content="AwaazRoute: speak a complaint in Hindi or Hinglish, get it classified and routed to the right team — with the answer read back in speech.">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="hero">
+  <h1>🎙️ AwaazRoute</h1>
+  <p class="tagline">Bolo apni shikayat — Hindi ya Hinglish me.<br>
+  App samjhega, sahi team ko bhejega, aur bolke batayega.</p>
+</header>
+
+<main>
+  <section class="card">
+    <div class="row">
+      <label for="lang">Bhasha / Language</label>
+      <select id="lang">
+        <option value="hi-IN" selected>हिन्दी (Hindi)</option>
+        <option value="en-IN">English (India)</option>
+      </select>
+    </div>
+
+    <button id="micBtn" class="mic">🎙️ Bolo — Mic se shikayat bolo</button>
+    <p class="hint" id="micHint">Mic Chrome / Edge me kaam karta hai. Mic na chale to neeche type kar do.</p>
+
+    <textarea id="complaint" rows="3" placeholder="Ya yahan likho — jaise: UPI payment fail ho gaya par paise kat gaye"></textarea>
+
+    <button id="classifyBtn" class="primary">Classify karo →</button>
+    <p class="status" id="status">Model load ho raha hai…</p>
+
+    <div class="samples">
+      <span>Try karo:</span>
+      <button data-sample="UPI payment fail ho gaya par paise kat gaye">UPI fail, paise kat gaye</button>
+      <button data-sample="mera credit card ka bill galat aaya hai">Galat credit card bill</button>
+      <button data-sample="mera CIBIL score achanak kam ho gaya">CIBIL score gir gaya</button>
+      <button data-sample="recovery agent ghar aakar dhamki de raha hai">Recovery agent ki dhamki</button>
+      <button data-sample="mera home loan EMI badh gaya hai">Loan EMI badh gayi</button>
+      <button data-sample="मुझे अपने इलाके की सड़क के लिए RTI डालनी है">RTI — sadak repair</button>
+    </div>
+  </section>
+
+  <section class="card result" id="result" hidden>
+    <h2>Result</h2>
+    <p class="category" id="resCategory">—</p>
+    <p class="confidence"><span id="resConfidence">—</span></p>
+    <div class="bar"><div id="resBar"></div></div>
+    <dl>
+      <div><dt>Bheja jayega</dt><dd id="resTeam">—</dd></div>
+      <div><dt>Priority</dt><dd id="resPriority">—</dd></div>
+      <div><dt>Evidence words</dt><dd id="resEvidence">—</dd></div>
+    </dl>
+    <p class="review" id="resReview" hidden>⚠️ Confidence 80% se kam hai — ye shikayat auto-route nahi hogi, human reviewer ko bheji jayegi.</p>
+    <button id="speakBtn" class="primary">🔊 Suno — result bolke suno</button>
+  </section>
+
+  <section class="card">
+    <h2>Kaise kaam karta hai</h2>
+    <ol class="steps">
+      <li><strong>Bolo.</strong> Mic se Hindi/Hinglish me shikayat bolo, ya type karo.</li>
+      <li><strong>Samjho.</strong> TF-IDF + Logistic Regression model shikayat ko 6 categories me se ek me daalta hai.</li>
+      <li><strong>Route karo.</strong> Category ke hisab se sahi team ya department suggest hota hai, priority ke saath.</li>
+      <li><strong>Suno.</strong> Result wapas bolke sunaya jata hai — padhna ya type karna zaroori nahi.</li>
+    </ol>
+    <p class="note">Kam confidence (&lt; 80%) ho to shikayat human reviewer ko bheji jati hai — yehi safeguard RTI Black Hole project me bhi hai.</p>
+  </section>
+
+  <section class="card">
+    <h2>Categories</h2>
+    <ul class="cats">
+      <li><strong>Bank Accounts and Services</strong> → Bank Account Support Team</li>
+      <li><strong>Credit Card Services</strong> → Credit Card Support Team</li>
+      <li><strong>Credit Reporting</strong> → Credit Bureau Disputes Team</li>
+      <li><strong>Debt Collection</strong> → Collections Resolution Team</li>
+      <li><strong>Loans</strong> → Loans Support Team</li>
+      <li><strong>Government Services / RTI</strong> → Concerned Govt. Department (RTI Cell)</li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>Honest note</h2>
+    <p class="note">Ye ek demo hai: classifier 144 synthetic sample complaints par train hua hai, isliye iski accuracy production model jaisi nahi hai. Live demo me awaaz ke liye browser ki built-in Web Speech API use hoti hai (koi key ya server nahi chahiye). Production design me Gnani AI ke models hain — Prisma v2.5 (speech-to-text), Evon v3.3 (reasoning) aur Timbre v2.5 (text-to-speech). Tumhari awaaz ya shikayat kahin store nahi hoti.</p>
+  </section>
+</main>
+
+<footer>
+  <p>Built by <a href="https://github.com/immishra13">Ankur Mishra</a> — grows out of
+  <a href="https://github.com/immishra13/-Financial-Complaint-Classifier">Financial Complaint Classifier</a> and
+  <a href="https://github.com/immishra13/RTI-black-hole">RTI Black Hole</a>. •
+  <a href="https://github.com/immishra13/AwaazRoute">GitHub repo</a></p>
+</footer>
+
+<script src="text.js"></script>
+<script src="categories.js"></script>
+<script src="classifier.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
