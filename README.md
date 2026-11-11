@@ -11,8 +11,8 @@ AwaazRoute lets a user simply **speak** the complaint in Hindi or code-mixed Hin
 ## Try it
 
 1. Open the [live demo](https://immishra13.github.io/AwaazRoute/).
-2. Tap **🎙️ Bolo** and speak (Chrome / Edge — mic permission needed), or type a complaint, or tap a sample.
-3. See the category, confidence, suggested team and priority — and tap **🔊 Suno** to hear it back.
+2. Tap **Bolo** and speak (Chrome / Edge — mic permission needed), or type a complaint, or tap a sample chip.
+3. See the category, confidence, suggested team and priority — and tap **Suno** to hear it back.
 
 Example inputs that work:
 
