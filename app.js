@@ -42,7 +42,7 @@ function classify() {
 
   $("resCategory").textContent = cat.label;
   $("resConfidence").textContent = `Confidence: ${pct}%`;
-  $("resBar").style.width = pct + "%";
+  $("resBar").style.transform = "scaleX(" + pct / 100 + ")";
   $("resTeam").textContent = cat.team;
   $("resPriority").textContent = priority;
   $("resEvidence").textContent =
@@ -87,6 +87,7 @@ if (!SR) {
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
     micBtn.classList.add("listening");
+    micBtn.setAttribute("aria-pressed", "true");
     $("micLabel").textContent = "Sun raha hoon… bolo";
     statusEl.textContent = "Sun raha hoon — apni shikayat bolo.";
     recognition.onresult = (e) => {
@@ -102,6 +103,7 @@ if (!SR) {
     recognition.onend = () => {
       recognition = null;
       micBtn.classList.remove("listening");
+      micBtn.setAttribute("aria-pressed", "false");
       $("micLabel").textContent = "Bolo — mic se shikayat bolo";
     };
     recognition.start();
