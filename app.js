@@ -12,6 +12,22 @@ const langSelect = $("lang");
 
 let modelReady = false;
 let lastSpokenText = "";
+let lastResult = null;
+
+// The sentence the Suno button reads back. Built from the last result so
+// it always matches the language currently picked in the language select.
+function buildSpokenText() {
+  if (!lastResult) return "";
+  return langSelect.value === "hi-IN"
+    ? `Aapki shikayat ${lastResult.label} se judi hai. Ise ${lastResult.team} ko bheja jayega. Confidence ${lastResult.pct} percent hai.`
+    : `Your complaint is about ${lastResult.label}. It will go to the ${lastResult.team}. Confidence is ${lastResult.pct} percent.`;
+}
+
+// If the language changes after a result is shown, rebuild the spoken
+// sentence — otherwise Suno would read the old language back.
+langSelect.addEventListener("change", () => {
+  if (lastResult) lastSpokenText = buildSpokenText();
+});
 
 async function init() {
   try {
@@ -50,11 +66,8 @@ function classify() {
   $("resReview").hidden = !needsReview;
   resultEl.hidden = false;
 
-  const lang = langSelect.value;
-  lastSpokenText =
-    lang === "hi-IN"
-      ? `Aapki shikayat ${cat.label} se judi hai. Ise ${cat.team} ko bheja jayega. Confidence ${pct} percent hai.`
-      : `Your complaint is about ${cat.label}. It will go to the ${cat.team}. Confidence is ${pct} percent.`;
+  lastResult = { label: cat.label, team: cat.team, pct };
+  lastSpokenText = buildSpokenText();
   resultEl.scrollIntoView({ behavior: "smooth", block: "nearest" });
 }
 
